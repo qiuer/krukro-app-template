@@ -1,24 +1,20 @@
 {
-    "name": "yiisoft/yii2-app-basic",
-    "description": "Yii 2 Basic Application Template",
-    "keywords": ["yii2", "framework", "basic", "application template"],
-    "homepage": "http://www.yiiframework.com/",
+    "name": "krukro/krukro-app-template",
+    "description": "Krukro Basic Application Template",
+    "keywords": ["krukro"],
+    "homepage": "http://krugcorp.ru/",
     "type": "project",
     "license": "BSD-3-Clause",
     "support": {
-        "issues": "https://github.com/yiisoft/yii2/issues?state=open",
-        "forum": "http://www.yiiframework.com/forum/",
-        "wiki": "http://www.yiiframework.com/wiki/",
-        "irc": "irc://irc.freenode.net/yii",
-        "source": "https://github.com/yiisoft/yii2"
+        "issues": "https://github.com/SerjRamone/krukro-app-template/issues?state=open",
+        "source": "https://github.com/SerjRamone/krukro-app-template"
     },
     "minimum-stability": "dev",
     "require": {
-        "php": ">=5.4.0",
+        "php": ">=5.4.14",
         "yiisoft/yii2": "*",
         "yiisoft/yii2-bootstrap": "*",
-        "yiisoft/yii2-swiftmailer": "*",
-        "vova07/yii2-imperavi-widget": "dev-master"
+        "yiisoft/yii2-swiftmailer": "*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",
@@ -48,7 +44,7 @@
             "yii"
         ],
         "config": [
-            "config/web.php"
+            "config/main.php"
         ]
     }
 }

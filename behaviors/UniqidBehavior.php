@@ -1,60 +1,54 @@
 <?php
 
-namespace app\controllers;
+namespace app\behaviors;
 
-use Yii;
-use yii\web\Controller;
-use app\models\LoginForm;
-use app\models\Page;
-use yii\web\NotFoundHttpException;
+use yii\behaviors\AttributeBehavior;
+use yii\db\BaseActiveRecord;
 
-class SiteController extends Controller
+/**
+ * Class UniqidBehavior
+ * @package app\behaviors
+ */
+class UniqidBehavior extends AttributeBehavior
 {
-    public function actions()
+    /**
+     * @var string prefix
+     */
+    public $prefix = '';
+
+    /**
+     * @var bool add additional entropy
+     */
+    public $moreEntropy = false;
+
+    /**
+     * @inheritdoc
+     */
+    public $attributes = [BaseActiveRecord::EVENT_INIT => 'id'];
+
+    /**
+     * @inheritdoc
+     */
+    public $value;
+
+    /**
+     * @inheritdoc
+     */
+    protected function getValue($event)
     {
-        return [
-            'error' => [
-                'class' => 'yii\web\ErrorAction',
-            ],
-        ];
+        return $this->value !== null ? $this->value : uniqid($this->prefix, $this->moreEntropy);
     }
 
-    public function actionLogin()
+    /**
+     * Updates a timestamp attribute to the current timestamp.
+     *
+     * ```php
+     * $model->touch('lastVisit');
+     * ```
+     * @param string $attribute the name of the attribute to update.
+     */
+    public function touch($attribute)
     {
-        if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
-
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        } else {
-            return $this->render('login', [
-                'model' => $model,
-            ]);
-        }
-    }
-
-    public function actionLogout()
-    {
-        Yii::$app->user->logout();
-
-        return $this->goHome();
-    }
-
-
-    public function actionPage($slug = 'index')
-    {
-        $model = Page::findOne([
-            'slug' => $slug,
-            'is_disabled' => false,
-        ]);
-
-        if (!$model)
-            throw new NotFoundHttpException('Страница не найдена');
-
-        return $this->render('page', [
-            'model' => $model,
-        ]);
+        $this->owner->updateAttributes(array_fill_keys((array) $attribute, $this->getValue(null)));
     }
 }

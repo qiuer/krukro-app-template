@@ -28,7 +28,7 @@ class m140728_083747_create_table_page extends Migration
             'content_en' => 'ntext NULL',
             'content_ua' => 'ntext NULL',
             'is_disabled' => 'bit NOT NULL DEFAULT (0)',
-            'CONSTRAINT PK_page PRIMARY KEY (id)',
+            'PRIMARY KEY (id)',
         ]);
         $this->createIndex('UK-page-slug', '{{%page}}', ['slug', 'site_id']);
     }

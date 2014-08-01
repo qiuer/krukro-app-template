@@ -31,6 +31,21 @@ class m140728_083747_create_table_page extends Migration
             'PRIMARY KEY (id)',
         ]);
         $this->createIndex('UK-page-slug', '{{%page}}', ['slug', 'site_id']);
+        $this->insert('{{%page}}', [
+            'id' => uniqid(),
+            'title_ru' => 'Главная страница',
+            'slug' => 'index',
+            'author_id' => '1',
+            'site_id' => 'krukro',
+            'content_ru' => '
+    <div class="jumbotron">
+        <h1>Congratulations!</h1>
+
+        <p class="lead">You have successfully created your Yii-powered application.</p>
+
+        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
+    </div>',
+        ]);
     }
 
     public function down()

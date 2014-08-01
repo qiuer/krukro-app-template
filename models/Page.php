@@ -9,14 +9,25 @@ use app\modules\admin\models\Admin;
 /**
  * This is the model class for table "page".
  *
- * @property integer $id
- * @property string $title
+ * @property string $id
+ * @property string $title_ru
+ * @property string $title_en
+ * @property string $title_ua
  * @property string $slug
  * @property integer $author_id
- * @property string $meta_title
- * @property string $meta_description
- * @property string $meta_keywords
- * @property string $content
+ * @property string $site_id
+ * @property string $meta_title_ru
+ * @property string $meta_title_en
+ * @property string $meta_title_ua
+ * @property string $meta_description_ru
+ * @property string $meta_description_en
+ * @property string $meta_description_ua
+ * @property string $meta_keywords_ru
+ * @property string $meta_keywords_en
+ * @property string $meta_keywords_ua
+ * @property string $content_ru
+ * @property string $content_en
+ * @property string $content_ua
  * @property integer $is_disabled
  *
  * Relations
@@ -29,7 +40,7 @@ class Page extends ActiveRecord
      */
     public static function tableName()
     {
-        return 'page';
+        return '{{%page}}';
     }
 
     /**
@@ -38,13 +49,77 @@ class Page extends ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'slug', 'content'], 'required'],
-            [['title', 'slug', 'meta_title', 'meta_description', 'meta_keywords', 'content'], 'string'],
+            [['title_ru', 'slug', 'content_ru'], 'required'],
+
+            [[
+                'title_ru',
+                'title_en',
+                'title_ua',
+                'slug',
+                'meta_title_ru',
+                'meta_title_en',
+                'meta_title_ua',
+                'meta_description_ru',
+                'meta_description_en',
+                'meta_description_ua',
+                'meta_keywords_ru',
+                'meta_keywords_en',
+                'meta_keywords_ua',
+                'content_ru',
+                'content_en',
+                'content_ua',
+            ], 'string'],
             [['author_id', 'is_disabled'], 'integer'],
+
             ['slug', 'unique'],
-            [['title', 'slug', 'meta_title', 'meta_description', 'meta_keywords'], 'string', 'max' => 255],
-            [['title', 'slug', 'meta_title', 'meta_description', 'meta_keywords'], 'filter', 'filter' => 'trim'],
-            [['title', 'slug', 'meta_title', 'meta_description', 'meta_keywords'], 'filter', 'filter' => 'strip_tags'],
+
+            [[
+                'title_ru',
+                'title_en',
+                'title_ua',
+                'slug',
+                'meta_title_ru',
+                'meta_title_en',
+                'meta_title_ua',
+                'meta_description_ru',
+                'meta_description_en',
+                'meta_description_ua',
+                'meta_keywords_ru',
+                'meta_keywords_en',
+                'meta_keywords_ua',
+            ], 'string', 'max' => 255],
+
+            [[
+                'title_ru',
+                'title_en',
+                'title_ua',
+                'slug',
+                'meta_title_ru',
+                'meta_title_en',
+                'meta_title_ua',
+                'meta_description_ru',
+                'meta_description_en',
+                'meta_description_ua',
+                'meta_keywords_ru',
+                'meta_keywords_en',
+                'meta_keywords_ua',
+            ], 'filter', 'filter' => 'trim'],
+
+            [[
+                'title_ru',
+                'title_en',
+                'title_ua',
+                'slug',
+                'meta_title_ru',
+                'meta_title_en',
+                'meta_title_ua',
+                'meta_description_ru',
+                'meta_description_en',
+                'meta_description_ua',
+                'meta_keywords_ru',
+                'meta_keywords_en',
+                'meta_keywords_ua',
+            ], 'filter', 'filter' => 'strip_tags'],
 
             ['is_disabled', 'default', 'value' => 0],
             ['is_disabled', 'in', 'range' => [0, 1]],
@@ -58,13 +133,24 @@ class Page extends ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => 'Заголовок',
+            'title_ru' => 'Заголовок (RU)',
+            'title_en' => 'Заголовок (EN)',
+            'title_ua' => 'Заголовок (UA)',
             'slug' => 'Псевдоним',
             'author_id' => 'ID автора',
-            'meta_title' => 'Meta Title',
-            'meta_description' => 'Meta Description',
-            'meta_keywords' => 'Meta Keywords',
-            'content' => 'Содержимое',
+            'site_id' => 'ID сайта',
+            'meta_title_ru' => 'Meta Title (RU)',
+            'meta_title_en' => 'Meta Title (EN)',
+            'meta_title_ua' => 'Meta Title (UA)',
+            'meta_description_ru' => 'Meta Description (RU)',
+            'meta_description_en' => 'Meta Description (EN)',
+            'meta_description_ua' => 'Meta Description (UA)',
+            'meta_keywords_ru' => 'Meta Keywords (RU)',
+            'meta_keywords_en' => 'Meta Keywords (EN)',
+            'meta_keywords_ua' => 'Meta Keywords (UA)',
+            'content_ru' => 'Содержимое (RU)',
+            'content_en' => 'Содержимое (EN)',
+            'content_ua' => 'Содержимое (UA)',
             'is_disabled' => 'Черновик',
         ];
     }
@@ -83,10 +169,23 @@ class Page extends ActiveRecord
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
                 $this->author_id = Yii::$app->user->id;
+                $this->site_id = Yii::$app->id;
             }
             return true;
         } else {
             return false;
         }
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            'uniqid' => [
+                'class' => 'app\behaviors\UniqidBehavior',
+            ],
+        ];
     }
 }

@@ -9,7 +9,7 @@ use yii\web\IdentityInterface;
 /**
  * User model
  *
- * @property integer $id
+ * @property string $id
  * @property string $username
  * @property string $name
  * @property string $email
@@ -127,6 +127,18 @@ class User extends ActiveRecord implements IdentityInterface
             ['email', 'required'],
             ['email', 'email'],
             ['email', 'unique'],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            'uniqid' => [
+                'class' => 'app\behaviors\UniqidBehavior',
+            ],
         ];
     }
 }

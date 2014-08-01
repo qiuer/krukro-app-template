@@ -8,7 +8,7 @@ class m140722_080030_create_table_user extends Migration
     public function up()
     {
         $this->createTable('{{%user}}', [
-            'id' => Schema::TYPE_PK,
+            'id' => 'char(13) NOT NULL',
             'username' => Schema::TYPE_STRING . ' NOT NULL',
             'name' => 'nvarchar(255) NOT NULL',
             'email' => 'nvarchar(255) DEFAULT NULL',
@@ -16,6 +16,7 @@ class m140722_080030_create_table_user extends Migration
             'auth_key' => 'char(32) NOT NULL',
             'password_reset_token' => Schema::TYPE_STRING . ' NULL',
             'is_disabled' => 'bit NOT NULL DEFAULT (0)',
+            'PRIMARY KEY (id)',
         ]);
     }
 

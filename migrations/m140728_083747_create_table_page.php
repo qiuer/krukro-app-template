@@ -35,7 +35,7 @@ class m140728_083747_create_table_page extends Migration
             'id' => uniqid(),
             'title_ru' => 'Главная страница',
             'slug' => 'index',
-            'author_id' => '1',
+            'author_id' => '53df808a512ae',
             'site_id' => 'krukro',
             'content_ru' => '
     <div class="jumbotron">

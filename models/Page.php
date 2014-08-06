@@ -4,7 +4,6 @@ namespace app\models;
 
 use Yii;
 use yii\db\ActiveRecord;
-use app\modules\admin\models\Admin;
 
 /**
  * This is the model class for table "page".
@@ -29,9 +28,6 @@ use app\modules\admin\models\Admin;
  * @property string $content_en
  * @property string $content_ua
  * @property integer $is_disabled
- *
- * Relations
- * @property Admin $author
  */
 class Page extends ActiveRecord
 {
@@ -153,15 +149,6 @@ class Page extends ActiveRecord
             'content_ua' => 'Содержимое (UA)',
             'is_disabled' => 'Черновик',
         ];
-    }
-
-    /**
-     * Return page author
-     * @return Admin
-     */
-    public function getAuthor()
-    {
-        return $this->hasOne(Admin::className(), ['id' => 'author_id']);
     }
 
     public function beforeSave($insert)

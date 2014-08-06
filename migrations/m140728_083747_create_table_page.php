@@ -13,7 +13,7 @@ class m140728_083747_create_table_page extends Migration
             'title_en' => 'nvarchar(255) NULL',
             'title_ua' => 'nvarchar(255) NULL',
             'slug' => Schema::TYPE_STRING . ' NOT NULL',
-            'author_id' => Schema::TYPE_INTEGER . ' NOT NULL',
+            'author_id' => 'char(13) NOT NULL',
             'site_id' => 'varchar(50) NOT NULL',
             'meta_title_ru' => 'nvarchar(255) NULL',
             'meta_title_en' => 'nvarchar(255) NULL',

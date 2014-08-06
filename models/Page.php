@@ -14,7 +14,7 @@ use app\modules\admin\models\Admin;
  * @property string $title_en
  * @property string $title_ua
  * @property string $slug
- * @property integer $author_id
+ * @property string $author_id
  * @property string $site_id
  * @property string $meta_title_ru
  * @property string $meta_title_en
@@ -69,7 +69,7 @@ class Page extends ActiveRecord
                 'content_en',
                 'content_ua',
             ], 'string'],
-            [['author_id', 'is_disabled'], 'integer'],
+            [['is_disabled'], 'integer'],
 
             ['slug', 'unique'],
 

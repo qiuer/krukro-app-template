@@ -32,7 +32,7 @@ class m140728_083747_create_table_page extends Migration
         ]);
         $this->createIndex('UK-page-slug', '{{%page}}', ['slug', 'site_id']);
         $this->insert('{{%page}}', [
-            'id' => uniqid(),
+            'id' => '53db5852b8b04',
             'title_ru' => 'Главная страница',
             'slug' => 'index',
             'author_id' => '53df808a512ae',
@@ -40,9 +40,7 @@ class m140728_083747_create_table_page extends Migration
             'content_ru' => '
     <div class="jumbotron">
         <h1>Congratulations!</h1>
-
         <p class="lead">You have successfully created your Yii-powered application.</p>
-
         <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
     </div>',
         ]);

@@ -28,6 +28,9 @@ use yii\db\ActiveRecord;
  * @property string $content_en
  * @property string $content_ua
  * @property integer $is_disabled
+ *
+ * Relations
+ * @property PageBlock[] $blocks
  */
 class Page extends ActiveRecord
 {
@@ -174,5 +177,14 @@ class Page extends ActiveRecord
                 'class' => 'app\behaviors\UniqidBehavior',
             ],
         ];
+    }
+
+    /**
+     * @return PageBlock[]
+     */
+    public function getBlocks()
+    {
+        return $this->hasMany(PageBlock::className(), ['page_id' => 'id'])
+            ->orderBy('sort ASC');
     }
 }

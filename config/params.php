@@ -6,4 +6,14 @@ return [
     'supportEmail' => 'example@example.com',
     'supportName' => 'Support',
     'user.passwordResetTokenExpire' => 3600,
+
+    'pageBlocks' => [
+        'text' => [
+            'class' => 'app\widgets\pageblocks\PageBlockTextWidget',
+            'params' => [
+                'content' => 'text',
+                'view' => 'paragraph',
+            ],
+        ],
+    ],
 ];

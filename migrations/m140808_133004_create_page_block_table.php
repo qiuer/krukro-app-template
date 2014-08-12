@@ -13,10 +13,11 @@ class m140808_133004_create_page_block_table extends Migration
             'sort' => Schema::TYPE_INTEGER . ' NULL DEFAULT (1)',
             'params' => Schema::TYPE_TEXT . ' NULL',
             'widget_class' => Schema::TYPE_STRING . ' NULL DEFAULT (1)',
+            'type' => 'varchar(50) NOT NULL',
         ]);
         $this->insert('{{%page_block}}', [
             'page_id' => '53db5852b8b04',
-            'site_id' => 'krukro',
+            'site_id' => 'krukro-app',
             'sort' => '1',
             'params' => '{"content":"<h3>Это тестовый <i>текстовый блок</i>!</h3>"}',
             'widget_class' => 'app\widgets\pageblocks\PageBlockTextWidget',

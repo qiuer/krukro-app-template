@@ -14,6 +14,7 @@ use yii\db\ActiveRecord;
  * @property integer $sort
  * @property string $params
  * @property string $widget_class
+ * @property string $type
  *
  * Properties:
  * @property string $content
@@ -25,7 +26,7 @@ class PageBlock extends ActiveRecord
      */
     public static function tableName()
     {
-        return '{{%page_block}}';
+        return 'page_block';
     }
 
     /**
@@ -34,8 +35,8 @@ class PageBlock extends ActiveRecord
     public function rules()
     {
         return [
-            [['page_id', 'site_id', 'widget_class'], 'required'],
-            [['page_id', 'site_id', 'params', 'widget_class'], 'string'],
+            [['page_id', 'site_id', 'widget_class', 'type'], 'required'],
+            [['page_id', 'site_id', 'params', 'widget_class', 'type'], 'string'],
             [['sort'], 'integer']
         ];
     }
@@ -49,8 +50,9 @@ class PageBlock extends ActiveRecord
             'page_id' => 'Page ID',
             'site_id' => 'Site ID',
             'sort' => 'Sort',
-            'params' => 'Params',
+            'params' => 'Параметры блока',
             'widget_class' => 'Widget Class',
+            'type' => 'Type',
         ];
     }
 
@@ -64,5 +66,31 @@ class PageBlock extends ActiveRecord
         /** @var $widget Widget */
         $widget = Yii::createObject($config);
         return $widget->run();
+    }
+
+    /**
+     * @param null $blockName
+     * @return array|false
+     */
+    public static function getBlockConfig($blockName = null)
+    {
+        $blocks = Yii::$app->params['pageBlocks'];
+        if (is_null($blockName)) {
+            return $blocks;
+        } else {
+            return (isset($blocks[$blockName])) ? $blocks[$blockName] : false;
+        }
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            'siteid' => [
+                'class' => 'app\behaviors\SiteidBehavior',
+            ],
+        ];
     }
 }

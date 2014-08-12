@@ -13,7 +13,7 @@ use yii\db\ActiveRecord;
  * @property string $title_en
  * @property string $title_ua
  * @property string $slug
- * @property string $author_id
+ * @property integer $author_id
  * @property string $site_id
  * @property string $meta_title_ru
  * @property string $meta_title_en
@@ -68,7 +68,7 @@ class Page extends ActiveRecord
                 'content_en',
                 'content_ua',
             ], 'string'],
-            [['is_disabled'], 'integer'],
+            [['author_id', 'is_disabled'], 'integer'],
 
             ['slug', 'unique'],
 
